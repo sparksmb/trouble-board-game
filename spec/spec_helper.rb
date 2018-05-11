@@ -14,5 +14,5 @@ RSpec.configure do |config|
 
   config.order = :random
 
-#Dir["/path/to/directory/*.rb"].each {|file| require file }
+  Dir.glob("#{File.expand_path('../../app', __FILE__)}/*.rb") {|f| require f}
 end

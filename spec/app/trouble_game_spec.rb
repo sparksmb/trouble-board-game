@@ -1,5 +1,4 @@
-require_relative '../spec_helper'
-require_relative '../../app/trouble_game'
+require 'spec_helper'
 
 RSpec.describe TroubleGame do
   describe "setup" do
