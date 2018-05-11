@@ -11,3 +11,8 @@ if defined? RSpec
     t.verbose = false
   end
 end
+
+task :console do
+  sh "./bin/console"
+end
+task :c => :console

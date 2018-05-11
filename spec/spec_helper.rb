@@ -13,4 +13,6 @@ RSpec.configure do |config|
   end
 
   config.order = :random
+
+#Dir["/path/to/directory/*.rb"].each {|file| require file }
 end
