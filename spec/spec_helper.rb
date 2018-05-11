@@ -14,5 +14,5 @@ RSpec.configure do |config|
 
   config.order = :random
 
-  Dir.glob("#{File.expand_path('../../app', __FILE__)}/*.rb") {|f| require f}
+  require_relative '../config/boot'
 end

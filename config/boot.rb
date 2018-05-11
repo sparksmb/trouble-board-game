@@ -1,3 +1,5 @@
-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
 
-require 'bundler/setup' # Set up gems listed in the Gemfile.
+Dir.glob("#{File.expand_path('../../app', __FILE__)}/*.rb") {|f| require f}
