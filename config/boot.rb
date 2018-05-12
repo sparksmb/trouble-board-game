@@ -2,4 +2,4 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
-Dir.glob("#{File.expand_path('../../app', __FILE__)}/*.rb") {|f| require f}
+Dir.glob("#{File.expand_path('../../lib', __FILE__)}/*.rb") {|f| require f}
