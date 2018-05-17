@@ -1,7 +1,7 @@
 class TroubleGame
   include Player
 
-  attr_accessor :players
+  attr_accessor :players, :board
 
   def initialize(players)
     @players = players
@@ -10,7 +10,8 @@ class TroubleGame
 
   def setup
     colors = [YELLOW, GREEN, BLUE, RED]
-    @players = @players.shuffle.map {|p| p.new(colors.pop) }
+    @players = @players.shuffle.map{|p| p.color = colors.pop; p }
+    update_player_pegs
   end
 
   def run
@@ -23,7 +24,14 @@ class TroubleGame
     n ||= push_pop_o_matic
     peg = current_player.choose_peg(n)
     board.move(peg, n)
+    log_turn(peg,n)
     end_turn
+  end
+
+  def log_turn(peg, n)
+    puts "#{@board.turn}|" \
+      "#{COLORS[@board.current_player]}|" \
+      "#{peg.nil? ? "-" : peg.to_s}|#{n.to_s}"
   end
 
   private

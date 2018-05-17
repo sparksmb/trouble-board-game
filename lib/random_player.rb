@@ -3,9 +3,9 @@ class RandomPlayer
 
   attr_accessor :name, :color
 
-  def initialize(color)
+  def initialize(name=nil)
     @color = color
-    @name = Faker::Name.name
+    @name = name || Faker::Name.name
     @pegs = []
   end
 

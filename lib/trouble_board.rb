@@ -1,6 +1,6 @@
 class TroubleBoard
   include Player
-  attr_accessor :pegs
+  attr_accessor :turn, :pegs
 
   def initialize(player_count)
     @turn = 1
@@ -21,7 +21,9 @@ class TroubleBoard
   end
 
   def curr_peg(peg_index, position=nil)
-    if position
+    if peg_index.nil?
+      nil
+    elsif position
       @pegs[current_player][peg_index] = position
     else
       @pegs[current_player][peg_index]
@@ -45,22 +47,27 @@ class TroubleBoard
     indexes
   end
 
-  def send_opponent_home(indicies)
-    @pegs[indicies[0]][indicies[1]] = 0
+  def send_opponent_home(target_space)
+    indicies = target_space_occupied_indicies(target_space)
+    if indicies.any?
+      @pegs[indicies[0]][indicies[1]] = 0
+    end
   end
 
   def move(peg, n)
+    if not peg.nil?
+      target_space = calc_target_space(peg,n)
+      send_opponent_home(target_space)
+      curr_peg(peg, target_space)
+    end
+  end
+
+  def calc_target_space(peg,n)
     if curr_peg_is_home?(peg) and n == 6
-      target_space = (current_player * 7) + 1
+      (current_player * 7) + 1
     else
       ts = curr_peg(peg) + n
-      target_space = ts > 28 ? ts - 28 : ts
+      ts > 28 ? ts - 28 : ts
     end
-
-    indicies = target_space_occupied_indicies(target_space)
-    if indicies.any?
-      send_opponent_home(indicies)
-    end
-    curr_peg(peg, target_space)
   end
 end

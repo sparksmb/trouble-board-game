@@ -52,6 +52,11 @@ RSpec.describe TroubleBoard do
     expect(board.pegs).to eq [ [2,0,0,0], [0,7,0,0], [0,0,0,0], [0,0,9,0] ]
   end
 
+  it "should do nothing when nil peg is chosen" do
+    board.move(nil,3)
+    expect(board.pegs).to eq [[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]
+  end
+
   it "should move peg to start space" do
     4.times {
       board.move(0,6)
@@ -79,7 +84,7 @@ RSpec.describe TroubleBoard do
 
   it "should send opponent home" do
     board.pegs = [[1,0,0,0], [7,0,0,0], [0,0,0,0], [0,0,0,0]]
-    board.send_opponent_home([1,0])
+    board.send_opponent_home(7)
     expect(board.pegs).to eq [[1,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]
   end
 
