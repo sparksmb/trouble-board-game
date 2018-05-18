@@ -1,11 +1,12 @@
 class TroubleGame
   include Player
 
-  attr_accessor :players, :board
+  attr_accessor :players, :board, :log
 
   def initialize(players)
     @players = players
     @board = TroubleBoard.new(players.count)
+    @log = ["turn|color|peg|roll"]
   end
 
   def setup
@@ -25,11 +26,11 @@ class TroubleGame
     peg = current_player.choose_peg(n)
     board.move(peg, n)
     log_turn(peg,n)
-    end_turn
+    end_turn(n)
   end
 
   def log_turn(peg, n)
-    puts "#{@board.turn}|" \
+    @log << "#{@board.turn}|" \
       "#{COLORS[@board.current_player]}|" \
       "#{peg.nil? ? "-" : peg.to_s}|#{n.to_s}"
   end
@@ -44,8 +45,8 @@ class TroubleGame
     @players[@board.current_player]
   end
 
-  def end_turn
-    @board.next_turn
+  def end_turn(n)
+    @board.next_turn n
     update_player_pegs
   end
 

@@ -4,7 +4,7 @@ class TroubleBoard
 
   def initialize(player_count)
     @turn = 1
-    @player_count = player_count
+    @players = (0..player_count-1).to_a
     @pegs = [[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]
   end
 
@@ -12,12 +12,18 @@ class TroubleBoard
     @pegs.flatten.sort.take_while {|i| i < 29 }.any?
   end
 
-  def current_player
-    (@turn - 1) % @player_count
+  def current_player(player=nil)
+    unless player.nil?
+      while @players.first != player
+        @players.rotate!
+      end
+    end
+    @players.first
   end
 
-  def next_turn
+  def next_turn(n)
     @turn += 1
+    @players.rotate! if n != 6
   end
 
   def curr_peg(peg_index, position=nil)

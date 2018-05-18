@@ -8,7 +8,7 @@ RSpec.describe TroubleBoard do
     board.pegs = [ [1,0,0,0], [8,0,0,0], [15,0,0,0], [22,0,0,0] ]
     6.times {|n|
       board.move(0,n)
-      board.next_turn
+      board.next_turn n
     }
     expect(board.pegs).to eq [ [5,0,0,0], [14,0,0,0], [17,0,0,0], [25,0,0,0] ]
   end
@@ -28,22 +28,22 @@ RSpec.describe TroubleBoard do
   end
 
   it "should send RED home when YELLOW advances 5 spaces" do
+    board.current_player YELLOW
     board.pegs = [[13,2,0,0], [0,0,0,0], [0,0,0,0], [25,0,0,0]]
-    3.times{ board.next_turn }
     board.move(0,5)
     expect(board.pegs).to eq [[13,0,0,0], [0,0,0,0], [0,0,0,0], [2,0,0,0]]
   end
 
   it "should move 2nd BLUE peg 5 spaces out of start" do
+    board.current_player BLUE
     board.pegs = [[1,0,0,0], [23,8,0,0], [0,0,0,0], [0,0,0,0]]
-    board.next_turn
     board.move(1,5)
     expect(board.pegs).to eq [[1,0,0,0], [23,13,0,0], [0,0,0,0], [0,0,0,0]]
   end
 
   it "should move 1st YELLOW peg 5 spaces" do
+    board.current_player YELLOW
     board.pegs = [[0,0,0,0], [0,0,0,0], [0,0,0,0], [25,0,0,0]]
-    3.times{ board.next_turn }
     board.move(0,5)
     expect(board.pegs).to eq [[0,0,0,0], [0,0,0,0], [0,0,0,0], [2,0,0,0]]
   end

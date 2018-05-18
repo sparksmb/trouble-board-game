@@ -10,15 +10,38 @@ RSpec.describe TroubleBoard do
 
   it "should know who current player is" do
     expect(board.current_player).to eq RED
-    board.next_turn
+    board.next_turn 3
     expect(board.current_player).to eq BLUE
-    board.next_turn
+    board.next_turn 3
     expect(board.current_player).to eq GREEN
-    board.next_turn
+    board.next_turn 2
     expect(board.current_player).to eq YELLOW
-    6.times { board.next_turn }
+    6.times { board.next_turn 5 }
     expect(board.current_player).to eq BLUE
-    9.times { board.next_turn }
+    9.times { board.next_turn 1 }
     expect(board.current_player).to eq GREEN
+  end
+
+  it "should stay RED's turn when 6 is rolled" do
+    expect(board.current_player).to eq RED
+    expect(board.turn).to eq 1
+    board.next_turn 6
+
+    expect(board.current_player).to eq RED
+    expect(board.turn).to eq 2
+
+    board.next_turn 1
+    expect(board.current_player).to eq BLUE
+    expect(board.turn).to eq 3
+  end
+
+  it "current player should be RED" do
+    expect(board.current_player).to eq RED
+
+    board.current_player YELLOW
+    expect(board.current_player).to eq YELLOW
+
+    board.current_player BLUE
+    expect(board.current_player).to eq BLUE
   end
 end
