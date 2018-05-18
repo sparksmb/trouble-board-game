@@ -2,7 +2,11 @@ require 'spec_helper'
 include Player
 
 RSpec.describe RandomPlayer do
-  let(:player) { RandomPlayer.new(RED) }
+  let(:player) {
+    p = RandomPlayer.new('Ted')
+    p.color = RED
+    p
+  }
 
   describe "choose_peg" do
     it "should choose nothing when no peg can move" do
